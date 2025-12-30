@@ -1,12 +1,11 @@
-# Use an official lightweight Nginx image
 FROM nginx:alpine
 
-# Copy your website files (HTML, CSS, JS) to the Nginx server
-# Assumes your files are in a folder named 'dist' or 'src'
-COPY ./index.html /usr/share/nginx/html/index.html
+# Clear the default Nginx files
+RUN rm -rf /usr/share/nginx/html/*
 
-# Expose port 80
+# Copy everything from your current directory into the container
+# This includes folders like /css, /js, or /images
+COPY . /usr/share/nginx/html/
+
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
